@@ -6,9 +6,13 @@ function mockSDK() {
       key = apiKey;
     },
     getApiKey: () => key,
+    load: jest.fn(),
+    update: jest.fn(),
   };
 }
 
+const sdk = mockSDK();
+
 module.exports = {
-  loadPurpleDot: () => Promise.resolve(mockSDK()),
+  loadPurpleDot: () => Promise.resolve(sdk),
 };
