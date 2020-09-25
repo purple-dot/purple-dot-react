@@ -3,8 +3,26 @@ import PropTypes from 'prop-types';
 import { usePurpleDot } from './PurpleDotContext';
 import toElemName from '../util/to-elem-name';
 
+const useCallbackForEvent = ({
+  purpleDot, eventName, callback, placementType, instanceId,
+}) => useEffect(() => {
+  if (purpleDot) {
+    const cb = (e) => {
+      if (e.placementType === placementType && e.instanceId === instanceId) {
+        callback(e);
+      }
+    };
+    purpleDot.on(eventName, cb);
+  }
+
+  return () => {
+    // TODO: Unsubscribe here
+    // purpleDot.off('PlacementLoaded', db);
+  };
+}, [purpleDot]);
+
 const makeElement = (placementType) => {
-  const Element = ({ instanceId, sku }) => {
+  const Element = ({ instanceId, sku, onLoad }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
 
@@ -34,6 +52,14 @@ const makeElement = (placementType) => {
       }
     }, [instanceId]);
 
+    useCallbackForEvent({
+      purpleDot,
+      instanceId,
+      placementType,
+      eventName: 'PlacementLoaded',
+      callback: onLoad,
+    });
+
     return (
       <div
         data-purple-dot-placement-type={placementType}
@@ -45,10 +71,12 @@ const makeElement = (placementType) => {
   Element.propTypes = {
     instanceId: PropTypes.string,
     sku: PropTypes.string.isRequired,
+    onLoad: PropTypes.func,
   };
 
   Element.defaultProps = {
     instanceId: '1',
+    onLoad: () => {},
   };
 
   Element.displayName = `${toElemName(placementType)}Element`;

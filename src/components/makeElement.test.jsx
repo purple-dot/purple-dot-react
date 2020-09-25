@@ -1,4 +1,6 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
 import { loadPurpleDot } from '@purple-dot/purple-dot-js';
@@ -73,5 +75,33 @@ describe('makeElement()', () => {
     });
 
     jest.clearAllMocks();
+  });
+
+  it('calls the onLoad function when the SDK fires PlacementLoaded', async () => {
+    const purpleDot = await loadPurpleDot();
+    jest.spyOn(purpleDot, 'on');
+
+    const sku = 'SKU123';
+    const instanceId = '123';
+    const placementType = 'price';
+    const onLoad = jest.fn();
+
+    const PriceElement = makeElement(placementType);
+
+    render(
+      <PurpleDot apiKey={apiKey}>
+        <PriceElement sku={sku} instanceId={instanceId} onLoad={onLoad} />
+      </PurpleDot>,
+    );
+
+    await waitFor(() => {
+      expect(purpleDot.on).toHaveBeenCalled();
+    });
+
+    act(() => {
+      purpleDot._fire('PlacementLoaded', { sku, instanceId, placementType });
+    });
+
+    expect(onLoad).toHaveBeenCalledWith({ sku, instanceId, placementType });
   });
 });
