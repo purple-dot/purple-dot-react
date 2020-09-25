@@ -7,8 +7,10 @@
     "build": "rm -rf dist/ && npx webpack",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "npx jest src/",
-    "lint": "npx eslint --ext js,jsx .",
+    "lint": "npx eslint --ext js,jsx src/",
     "lint:fix": "npm run lint -- --fix",
+    "lint:all": "npx eslint --ext js,jsx .",
+    "lint:all:fix": "npm run lint:all -- --fix",
     "publish-package": "npm run build && npm publish --access public",
     "prepack": "cp .gitignore .npmignore && echo '\n e2e/ \n .circleci' >> .npmignore",
     "postpack": "rm .npmignore"
