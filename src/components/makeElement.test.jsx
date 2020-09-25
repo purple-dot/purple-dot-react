@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { loadPurpleDot } from '@purple-dot/purple-dot-js';
 
 import PurpleDot from './PurpleDotContext';
@@ -50,7 +50,7 @@ describe('makeElement()', () => {
   it('warns when the instanceId prop changes', async () => {
     jest.spyOn(console, 'warn').mockImplementation(() => {});
 
-    const purpleDot = await loadPurpleDot();
+    await loadPurpleDot();
 
     const PriceElement = makeElement('price');
 
