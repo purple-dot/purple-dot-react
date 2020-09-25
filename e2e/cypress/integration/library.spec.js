@@ -5,7 +5,7 @@ describe('@purple-dot/purple-dot-js', () => {
       cy.spy(win.console, 'warn');
     });
 
-    cy.visit('http://localhost:8081/');
+    cy.visit('http://localhost:8080/');
   });
 
   it('Loads the Purple Dot SDK without warnings or errors', () => {
