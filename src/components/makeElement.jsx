@@ -26,6 +26,10 @@ const makeElement = (placementType) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
 
+    if (purpleDot === 'not_set') {
+      throw new Error('Purple Dot placement elements must be wrapped in <PurpleDot /> context');
+    }
+
     useLayoutEffect(() => {
       if (purpleDot) {
         if (!isLoaded.current) {

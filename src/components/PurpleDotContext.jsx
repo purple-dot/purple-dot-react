@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { loadPurpleDot } from '@purple-dot/purple-dot-js';
 
-export const PurpleDotContext = React.createContext(null);
+export const PurpleDotContext = React.createContext('not_set');
 
 export const usePurpleDot = () => useContext(PurpleDotContext);
 

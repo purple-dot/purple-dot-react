@@ -104,4 +104,11 @@ describe('makeElement()', () => {
 
     expect(onLoad).toHaveBeenCalledWith({ sku, instanceId, placementType });
   });
+
+  it('throws when used outside of the PurpleDot context', async () => {
+    const PriceElement = makeElement('price');
+
+    expect(() => render(<PriceElement sku="SKU123" />))
+      .toThrow('Purple Dot placement elements must be wrapped in <PurpleDot /> context');
+  });
 });
