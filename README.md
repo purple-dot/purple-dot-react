@@ -4,7 +4,7 @@ React components for the [purpledot.js SDK](https://www.purpledotprice.com/docs/
 
 ## Installation
 
-```
+```bash
 npm install @purple-dot/purple-dot-react
 ```
 
@@ -18,7 +18,7 @@ Next, you can use the `*Element` placement elements in your components.
 
 If you need access to the SDK object, you can use the `usePurpleDot` hook.
 
-```javascript
+```jsx
 import React, { useEffect } from 'react';
 import { PurpleDot, PriceElement, ButtonElement, usePurpleDot } from '@purple-dot/purple-dot-react';
 
@@ -57,7 +57,7 @@ const ProductPage = ({ sku, name, price }) => {
 
 A context provider that loads the SDK and makes it available to its children.
 
-```javascript
+```jsx
 import { PurpleDot } from '@purple-dot/purple-dot-react';
 
 <PurpleDot
@@ -70,7 +70,7 @@ import { PurpleDot } from '@purple-dot/purple-dot-react';
 A hook that returns an instance of the SDK. Because it loads asynchronously, it
 returns `null` initially and when rendering on the server.
 
-```javascript
+```jsx
 import { usePurpleDot } from '@purple-dot/purple-dot-react';
 
 const Component = () => {
@@ -92,7 +92,7 @@ const Component = () => {
 
 A component for the price placement.
 
-```javascript
+```jsx
 import { PriceElement } from '@purple-dot/purple-dot-react';
 
 <PriceElement
@@ -106,7 +106,7 @@ import { PriceElement } from '@purple-dot/purple-dot-react';
 
 A component for the CTA placement.
 
-```javascript
+```jsx
 import { ButtonElement } from '@purple-dot/purple-dot-react';
 
 <ButtonElement
