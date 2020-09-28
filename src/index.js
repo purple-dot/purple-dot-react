@@ -6,7 +6,6 @@ const ButtonElement = makeComponent('button');
 
 export {
   PurpleDot,
-  PurpleDotContext,
   usePurpleDot,
   PriceElement,
   ButtonElement,
