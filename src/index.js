@@ -1,8 +1,6 @@
-import PurpleDot, { PurpleDotContext, usePurpleDot } from './components/PurpleDotContext';
-import makeComponent from './components/makeElement';
-
-const PriceElement = makeComponent('price');
-const ButtonElement = makeComponent('button');
+import PurpleDot, { usePurpleDot } from './components/PurpleDotContext';
+import PriceElement from './components/PriceElement';
+import ButtonElement from './components/ButtonElement';
 
 export {
   PurpleDot,

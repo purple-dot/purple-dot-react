@@ -10,6 +10,7 @@ function mockSDK() {
     on: (name, cb) => {
       subscribers[name] = cb;
     },
+    setCustomerData: jest.fn(),
     _fire: (name, event) => {
       subscribers[name](event);
     },
