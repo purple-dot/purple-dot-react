@@ -96,9 +96,12 @@ A component for the price placement.
 import { PriceElement } from '@purple-dot/purple-dot-react';
 
 <PriceElement
-  sku="SKU123" // The SKU of the product to show a price for (required)
-  instanceId="2" // Used if there are multiple instances of the same element on the page
-  onLoad={() => {}} // A callback that fires when the price starts showing
+  // The SKU of the product to show a price for (required)
+  sku="SKU123"
+  // Used if there are multiple instances of the same element on the page
+  instanceId="2"
+  // A callback that fires when the price starts showing
+  onLoad={() => {}}
 />
 ```
 
@@ -110,9 +113,28 @@ A component for the CTA placement.
 import { ButtonElement } from '@purple-dot/purple-dot-react';
 
 <ButtonElement
-  sku="SKU123" // The SKU of the product to show a price for (required)
-  instanceId="2" // Used if there are multiple instances of the same element on the page
-  onLoad={() => {}} // A callback that fires when the price starts showing
+  /* The SKU of the product to show a price for (required) */
+  sku="SKU123"
+  /* Used if there are multiple instances of the same element on the page */
+  instanceId="2"
+  /* A callback that fires when the price starts showing */
+  onLoad={() => {}}
+  /* An object or an (async) function returning an object with customer details
+     to pre-fill the checkout with */
+  customerData={() => {
+    return {
+      email: 'joe@test.com',
+      address: {
+        firstName: 'John',
+        lastName: 'Smith',
+        line1: '5 Test House',
+        line2: '123 Test St',
+        city: 'Testville',
+        country: 'GB',
+        postalCode: 'T14 1TT',
+        phoneNumber: '07123 12345',
+      },
+  }}
 />
 ```
 
