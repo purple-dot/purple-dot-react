@@ -21,6 +21,7 @@ module.exports = {
     filename: 'index.js',
     library: 'PurpleDot',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   target: 'web',
   mode: 'production',
