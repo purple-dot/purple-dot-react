@@ -23,7 +23,7 @@ const useCallbackForEvent = ({
 
 const makeElement = (placementType) => {
   const Element = ({
-    instanceId, sku, style, onLoad,
+    instanceId, sku, style, labelStyle, onLoad,
   }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
@@ -40,6 +40,7 @@ const makeElement = (placementType) => {
             instanceId,
             sku,
             style,
+            labelStyle
           });
           isLoaded.current = true;
         } else {
@@ -85,10 +86,9 @@ const makeElement = (placementType) => {
       fontFamily: PropTypes.string,
       fontSize: PropTypes.string,
       fontWeight: PropTypes.string,
-      textColor: PropTypes.string,
+      color: PropTypes.string,
       lineHeight: PropTypes.string,
       letterSpacing: PropTypes.string,
-      align: PropTypes.oneOf(['left', 'center']),
       height: PropTypes.string,
       borderRadius: PropTypes.string,
       backgroundColor: PropTypes.string,
