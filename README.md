@@ -144,6 +144,23 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
 />
 ```
 
+### `MessagingElement`
+
+A component for the messaging placement.
+
+```jsx
+import { MessagingElement } from '@purple-dot/purple-dot-react';
+
+<MessagingElement
+  // The SKU of the product that determines what messaging is shown
+  sku="SKU123"
+  // Used if there are multiple instances of the same element on the page
+  instanceId="2"
+  // A callback that fires when the messaging element starts showing
+  onLoad={() => {}}
+/>
+```
+
 ### Minimum Requirements
 
 The minimum supported version of React is v16.8.
