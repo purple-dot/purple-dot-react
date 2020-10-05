@@ -13,6 +13,8 @@ describe('@purple-dot/purple-dot-js', () => {
 
     // We expect the placement to not load since we're not using a real API key or SKU
     cy.get('[data-purple-dot-placement-type="price"]').should('have.css', 'display', 'none');
+    cy.get('[data-purple-dot-placement-type="button"]').should('have.css', 'display', 'none');
+    cy.get('[data-purple-dot-placement-type="messaging"]').should('have.css', 'display', 'none');
 
     cy.window().then((win) => {
       expect(win.console.error).to.have.callCount(0);
