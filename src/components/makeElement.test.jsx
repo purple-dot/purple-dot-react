@@ -24,7 +24,7 @@ describe('makeElement()', () => {
 
     const { rerender } = render(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku="SKU123" />
+        <PriceElement sku="SKU123" style={{ textColor: '#FF00FF' }} />
       </PurpleDot>,
     );
 
@@ -33,12 +33,13 @@ describe('makeElement()', () => {
         placementType: 'price',
         instanceId: '1',
         sku: 'SKU123',
+        style: { textColor: '#FF00FF' },
       });
     });
 
     rerender(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku="SKU456" />
+        <PriceElement sku="SKU456" style={{ textColor: '#000' }} />
       </PurpleDot>,
     );
 
@@ -46,6 +47,7 @@ describe('makeElement()', () => {
       placementType: 'price',
       instanceId: '1',
       sku: 'SKU456',
+      style: { textColor: '#000' },
     });
   });
 

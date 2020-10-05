@@ -22,7 +22,9 @@ const useCallbackForEvent = ({
 }, [purpleDot]);
 
 const makeElement = (placementType) => {
-  const Element = ({ instanceId, sku, onLoad }) => {
+  const Element = ({
+    instanceId, sku, style, onLoad,
+  }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
 
@@ -37,6 +39,7 @@ const makeElement = (placementType) => {
             placementType,
             instanceId,
             sku,
+            style,
           });
           isLoaded.current = true;
         } else {
@@ -44,6 +47,7 @@ const makeElement = (placementType) => {
             placementType,
             instanceId,
             sku,
+            style,
           });
         }
       }
@@ -76,11 +80,25 @@ const makeElement = (placementType) => {
     instanceId: PropTypes.string,
     sku: PropTypes.string.isRequired,
     onLoad: PropTypes.func,
+    style: PropTypes.shape({
+      cssSrc: PropTypes.string,
+      fontFamily: PropTypes.string,
+      fontSize: PropTypes.string,
+      fontWeight: PropTypes.string,
+      textColor: PropTypes.string,
+      lineHeight: PropTypes.string,
+      letterSpacing: PropTypes.string,
+      align: PropTypes.oneOf(['left', 'center']),
+      height: PropTypes.string,
+      borderRadius: PropTypes.string,
+      backgroundColor: PropTypes.string,
+    }),
   };
 
   Element.defaultProps = {
     instanceId: '1',
     onLoad: () => {},
+    style: undefined,
   };
 
   Element.displayName = `${toElemName(placementType)}Element`;
