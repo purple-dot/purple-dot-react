@@ -40,7 +40,7 @@ const makeElement = (placementType) => {
             instanceId,
             sku,
             style,
-            labelStyle
+            labelStyle,
           });
           isLoaded.current = true;
         } else {
@@ -77,28 +77,32 @@ const makeElement = (placementType) => {
     );
   };
 
+  const styleShape = PropTypes.shape({
+    cssSrc: PropTypes.string,
+    fontFamily: PropTypes.string,
+    fontSize: PropTypes.string,
+    fontWeight: PropTypes.string,
+    color: PropTypes.string,
+    lineHeight: PropTypes.string,
+    letterSpacing: PropTypes.string,
+    height: PropTypes.string,
+    borderRadius: PropTypes.string,
+    backgroundColor: PropTypes.string,
+  });
+
   Element.propTypes = {
     instanceId: PropTypes.string,
     sku: PropTypes.string.isRequired,
     onLoad: PropTypes.func,
-    style: PropTypes.shape({
-      cssSrc: PropTypes.string,
-      fontFamily: PropTypes.string,
-      fontSize: PropTypes.string,
-      fontWeight: PropTypes.string,
-      color: PropTypes.string,
-      lineHeight: PropTypes.string,
-      letterSpacing: PropTypes.string,
-      height: PropTypes.string,
-      borderRadius: PropTypes.string,
-      backgroundColor: PropTypes.string,
-    }),
+    style: styleShape,
+    labelStyle: styleShape,
   };
 
   Element.defaultProps = {
     instanceId: '1',
     onLoad: () => {},
     style: undefined,
+    labelStyle: undefined,
   };
 
   Element.displayName = `${toElemName(placementType)}Element`;
