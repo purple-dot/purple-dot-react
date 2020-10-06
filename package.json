@@ -1,6 +1,6 @@
 {
   "name": "@purple-dot/purple-dot-react",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "An ES module wrapper for the purpledot.js SDK",
   "main": "dist/index.js",
   "scripts": {
