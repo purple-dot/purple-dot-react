@@ -23,7 +23,7 @@ const useCallbackForEvent = ({
 
 const makeElement = (placementType) => {
   const Element = ({
-    instanceId, sku, style, labelStyle, onLoad,
+    instanceId, sku, style, hoverStyle, disabledStyle, labelStyle, onLoad,
   }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
@@ -40,6 +40,8 @@ const makeElement = (placementType) => {
             instanceId,
             sku,
             style,
+            hoverStyle,
+            disabledStyle,
             labelStyle,
           });
           isLoaded.current = true;
@@ -95,6 +97,8 @@ const makeElement = (placementType) => {
     sku: PropTypes.string.isRequired,
     onLoad: PropTypes.func,
     style: styleShape,
+    hoverStyle: styleShape,
+    disabledStyle: styleShape,
     labelStyle: styleShape,
   };
 
@@ -102,6 +106,8 @@ const makeElement = (placementType) => {
     instanceId: '1',
     onLoad: () => {},
     style: undefined,
+    hoverStyle: undefined,
+    disabledStyle: undefined,
     labelStyle: undefined,
   };
 

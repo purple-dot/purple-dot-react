@@ -116,6 +116,8 @@ A component for the CTA placement.
 import { ButtonElement } from '@purple-dot/purple-dot-react';
 
 <ButtonElement
+  /* Your unqiue product identifier */
+  productCode="product-code"
   /* The SKU of the product to show a price for (required) */
   sku="SKU123"
   /* Used if there are multiple instances of the same element on the page */
@@ -141,6 +143,8 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
   /* A style element that customises the placement's appearance.
      See https://www.purpledotprice.com/docs/reference/javascript-sdk#the-style-object */
   style={{ fontSize: '16px' }}
+  hoverStyle={{ backgroundColor: '#FFF' }}
+  disabledStyle={{ backgroundColor: '#D8D8D8' }}
 />
 ```
 
