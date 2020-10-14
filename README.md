@@ -116,9 +116,19 @@ A component for the CTA placement.
 import { ButtonElement } from '@purple-dot/purple-dot-react';
 
 <ButtonElement
-  /* Your unqiue product identifier */
+  /* One of the following ways to uniquely identify the product code is required*/
+
+  /* The Product Id https://shopify.dev/docs/themes/liquid/reference/objects/product#product-id */
+  productId="4697325404292"
+
+  /* OR */
+
+  /* The Product Code often used as the slug for the product page url*/
   productCode="product-code"
-  /* The SKU of the product to show a price for (required) */
+
+  /* Optional */
+
+  /* The SKU of the product if one has been selected*/
   sku="SKU123"
   /* Used if there are multiple instances of the same element on the page */
   instanceId="2"

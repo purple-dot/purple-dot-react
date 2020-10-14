@@ -23,7 +23,7 @@ const useCallbackForEvent = ({
 
 const makeElement = (placementType) => {
   const Element = ({
-    instanceId, sku, style, hoverStyle, disabledStyle, labelStyle, onLoad,
+    instanceId, productId, productCode, sku, style, hoverStyle, disabledStyle, labelStyle, onLoad,
   }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
@@ -38,6 +38,8 @@ const makeElement = (placementType) => {
           purpleDot.load({
             placementType,
             instanceId,
+            productId,
+            productCode,
             sku,
             style,
             hoverStyle,
@@ -49,6 +51,8 @@ const makeElement = (placementType) => {
           purpleDot.update({
             placementType,
             instanceId,
+            productId,
+            productCode,
             sku,
             style,
           });
@@ -94,6 +98,8 @@ const makeElement = (placementType) => {
 
   Element.propTypes = {
     instanceId: PropTypes.string,
+    productId: PropTypes.string,
+    productCode: PropTypes.string,
     sku: PropTypes.string.isRequired,
     onLoad: PropTypes.func,
     style: styleShape,
@@ -105,6 +111,8 @@ const makeElement = (placementType) => {
   Element.defaultProps = {
     instanceId: '1',
     onLoad: () => {},
+    productId: undefined,
+    productCode: undefined,
     style: undefined,
     hoverStyle: undefined,
     disabledStyle: undefined,
