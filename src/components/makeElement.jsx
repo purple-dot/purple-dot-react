@@ -58,7 +58,7 @@ const makeElement = (placementType) => {
           });
         }
       }
-    }, [purpleDot, sku]);
+    }, [purpleDot, sku, productId, productCode]);
 
     const prevInstanceId = useRef(instanceId);
     useEffect(() => {
