@@ -175,6 +175,20 @@ import { MessagingElement } from '@purple-dot/purple-dot-react';
 />
 ```
 
+### `PreorderStatusElement`
+
+A component for dispaying the users pre-orders history 
+
+```jsx
+import { PreorderStatusElement } from '@purple-dot/purple-dot-react';
+
+<PreorderStatusElement
+  email="test@email.com"
+  onPreorderCancelled={() => {}}
+  onArrangeReturnClicked={() => {}}
+/>
+```
+
 ### Minimum Requirements
 
 The minimum supported version of React is v16.8.
