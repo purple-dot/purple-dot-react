@@ -5,10 +5,8 @@ import PropTypes from 'prop-types';
 import { usePurpleDot } from './PurpleDotContext';
 
 const PreorderStatus = ({ email, onPreorderCancelled, onArrangeReturnClicked }) => {
-  console.log('Render', email, onPreorderCancelled, onArrangeReturnClicked);
   const purpleDot = usePurpleDot();
   const isLoaded = useRef(false);
-  console.log('Purple Dot', purpleDot);
 
   if (purpleDot === 'not_set') {
     throw new Error('Purple Dot placement elements must be wrapped in <PurpleDot /> context');
