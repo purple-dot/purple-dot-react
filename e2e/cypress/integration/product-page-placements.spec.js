@@ -4,11 +4,10 @@ describe('@purple-dot/purple-dot-js', () => {
       cy.spy(win.console, 'error');
       cy.spy(win.console, 'warn');
     });
-
-    cy.visit('http://localhost:8080/');
   });
 
   it('Loads the Purple Dot SDK without warnings or errors', () => {
+    cy.visit('http://localhost:8080/');
     cy.window().should('have.property', 'PurpleDot');
 
     // We expect the placement to not load since we're not using a real API key or SKU
