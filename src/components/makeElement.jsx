@@ -23,7 +23,8 @@ const useCallbackForEvent = ({
 
 const makeElement = (placementType) => {
   const Element = ({
-    instanceId, productId, productCode, sku, style, hoverStyle, disabledStyle, labelStyle, onLoad,
+    instanceId, productId, productCode, sku, style, hoverStyle, disabledStyle, labelStyle,
+    lineItemProperties, onLoad,
   }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
@@ -34,31 +35,36 @@ const makeElement = (placementType) => {
 
     useLayoutEffect(() => {
       if (purpleDot) {
+        const attrs = {
+          placementType,
+          instanceId,
+          productId,
+          productCode,
+          sku,
+          lineItemProperties,
+          style,
+          hoverStyle,
+          disabledStyle,
+          labelStyle,
+        };
         if (!isLoaded.current) {
-          purpleDot.load({
-            placementType,
-            instanceId,
-            productId,
-            productCode,
-            sku,
-            style,
-            hoverStyle,
-            disabledStyle,
-            labelStyle,
-          });
+          purpleDot.load(attrs);
           isLoaded.current = true;
         } else {
-          purpleDot.update({
-            placementType,
-            instanceId,
-            productId,
-            productCode,
-            sku,
-            style,
-          });
+          purpleDot.update(attrs);
         }
       }
-    }, [purpleDot, sku, productId, productCode]);
+    }, [
+      purpleDot,
+      sku,
+      productId,
+      productCode,
+      style,
+      hoverStyle,
+      disabledStyle,
+      labelStyle,
+      lineItemProperties,
+    ]);
 
     const prevInstanceId = useRef(instanceId);
     useEffect(() => {
@@ -96,11 +102,19 @@ const makeElement = (placementType) => {
     backgroundColor: PropTypes.string,
   });
 
+  const lineItemPropertiesShape = PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  );
+
   Element.propTypes = {
     instanceId: PropTypes.string,
     productId: PropTypes.string,
     productCode: PropTypes.string,
     sku: PropTypes.string.isRequired,
+    lineItemProperties: lineItemPropertiesShape,
     onLoad: PropTypes.func,
     style: styleShape,
     hoverStyle: styleShape,
@@ -113,6 +127,7 @@ const makeElement = (placementType) => {
     onLoad: () => {},
     productId: undefined,
     productCode: undefined,
+    lineItemProperties: undefined,
     style: undefined,
     hoverStyle: undefined,
     disabledStyle: undefined,

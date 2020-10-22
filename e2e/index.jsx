@@ -12,7 +12,10 @@ const App = () => (
     ) : (
       <>
         <PriceElement sku="test-sku" />
-        <ButtonElement sku="test-sku" />
+        <ButtonElement
+          sku="test-sku"
+          lineItemProperties={[{ name: 'Foo', value: 'Bar' }]}
+        />
         <MessagingElement sku="test-sku" />
       </>
     )}
