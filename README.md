@@ -150,6 +150,11 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
         phoneNumber: '07123 12345',
       },
   }}
+  /* An optional list of objects with name and value attributes. Specifyies additional
+     properties of the item being bought that are passed through to the checkout. */
+  lineItemProperties={[
+    { name: 'Monogramming', value: 'JS' }
+  ]}
   /* A style element that customises the placement's appearance.
      See https://www.purpledotprice.com/docs/reference/javascript-sdk#the-style-object */
   style={{ fontSize: '16px' }}
