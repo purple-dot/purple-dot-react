@@ -132,7 +132,7 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
   sku="SKU123"
   /* Used if there are multiple instances of the same element on the page */
   instanceId="2"
-  /* A callback that fires when the price starts showing */
+  /* A callback that fires when the button starts showing */
   onLoad={() => {}}
   /* An object or an (async) function returning an object with customer details
      to pre-fill the checkout with */
@@ -160,6 +160,12 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
   style={{ fontSize: '16px' }}
   hoverStyle={{ backgroundColor: '#FFF' }}
   disabledStyle={{ backgroundColor: '#D8D8D8' }}
+  /* Callbacks that fire based on pre-order checkout events.
+     See https://www.purpledotprice.com/docs/reference/javascript-sdk#events. */
+  onPreorderCheckoutStep={({ stepNumber, stepName }) => {}}
+  onPreorderCheckoutSubmitted={() => {}}
+  onPreorderCreated={({ reference, email, shippingAddress, lineItem }) => {}}
+  onPreorderFailed={() => {}}
 />
 ```
 
