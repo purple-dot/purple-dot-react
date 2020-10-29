@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { usePurpleDot } from './PurpleDotContext';
 import toElemName from '../util/to-elem-name';
 
-const useCallbackForEvent = ({
+export const useCallbackForEvent = ({
   purpleDot, eventName, callback, placementType, instanceId,
 }) => useEffect(() => {
-  if (purpleDot) {
+  if (purpleDot && callback) {
     const cb = (e) => {
-      if (e.placementType === placementType && e.instanceId === instanceId) {
+      if ((!placementType && !instanceId)
+          || (e.placementType === placementType && e.instanceId === instanceId)) {
         callback(e);
       }
     };
     purpleDot.on(eventName, cb);
-  }
 
-  return () => {
-    // TODO: Unsubscribe here
-    // purpleDot.off('PlacementLoaded', db);
-  };
-}, [purpleDot]);
+    return () => {
+      purpleDot.off(eventName, cb);
+    };
+  }
+  return () => {};
+}, [purpleDot, callback, eventName]);
 
 const makeElement = (placementType) => {
   const Element = ({
@@ -115,16 +116,16 @@ const makeElement = (placementType) => {
     productCode: PropTypes.string,
     sku: PropTypes.string.isRequired,
     lineItemProperties: lineItemPropertiesShape,
-    onLoad: PropTypes.func,
     style: styleShape,
     hoverStyle: styleShape,
     disabledStyle: styleShape,
     labelStyle: styleShape,
+
+    onLoad: PropTypes.func,
   };
 
   Element.defaultProps = {
     instanceId: '1',
-    onLoad: () => {},
     productId: undefined,
     productCode: undefined,
     lineItemProperties: undefined,
@@ -132,6 +133,8 @@ const makeElement = (placementType) => {
     hoverStyle: undefined,
     disabledStyle: undefined,
     labelStyle: undefined,
+
+    onLoad: null,
   };
 
   Element.displayName = `${toElemName(placementType)}Element`;
