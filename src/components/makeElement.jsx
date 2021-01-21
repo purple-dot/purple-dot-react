@@ -25,7 +25,7 @@ export const useCallbackForEvent = ({
 const makeElement = (placementType) => {
   const Element = ({
     instanceId, productId, productCode, sku, style, hoverStyle, disabledStyle, labelStyle,
-    lineItemProperties, onLoad,
+    lineItemProperties, onLoad, fallbackToSoldOut,
   }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
@@ -47,6 +47,7 @@ const makeElement = (placementType) => {
           hoverStyle,
           disabledStyle,
           labelStyle,
+          fallbackToSoldOut,
         };
         if (!isLoaded.current) {
           purpleDot.load(attrs);
@@ -65,6 +66,7 @@ const makeElement = (placementType) => {
       disabledStyle,
       labelStyle,
       lineItemProperties,
+      fallbackToSoldOut,
     ]);
 
     const prevInstanceId = useRef(instanceId);
@@ -120,6 +122,7 @@ const makeElement = (placementType) => {
     hoverStyle: styleShape,
     disabledStyle: styleShape,
     labelStyle: styleShape,
+    fallbackToSoldOut: PropTypes.bool,
 
     onLoad: PropTypes.func,
   };
@@ -133,6 +136,7 @@ const makeElement = (placementType) => {
     hoverStyle: undefined,
     disabledStyle: undefined,
     labelStyle: undefined,
+    fallbackToSoldOut: false,
 
     onLoad: null,
   };

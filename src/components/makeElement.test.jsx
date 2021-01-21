@@ -34,6 +34,7 @@ describe('makeElement()', () => {
         instanceId: '1',
         sku: 'SKU123',
         style: { textColor: '#FF00FF' },
+        fallbackToSoldOut: false,
       });
     });
 
@@ -48,6 +49,7 @@ describe('makeElement()', () => {
       instanceId: '1',
       sku: 'SKU456',
       style: { textColor: '#000' },
+      fallbackToSoldOut: false,
     });
   });
 
