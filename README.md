@@ -132,6 +132,9 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
   sku="SKU123"
   /* Used if there are multiple instances of the same element on the page */
   instanceId="2"
+  /* Show a sold out state instead of hiding the button if there is no
+     presale configured for the product */
+  fallbackToSoldOut
   /* A callback that fires when the button starts showing */
   onLoad={() => {}}
   /* An object or an (async) function returning an object with customer details
