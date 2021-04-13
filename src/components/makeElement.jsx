@@ -24,8 +24,18 @@ export const useCallbackForEvent = ({
 
 const makeElement = (placementType) => {
   const Element = ({
-    instanceId, productId, productCode, sku, style, hoverStyle, disabledStyle, labelStyle,
-    lineItemProperties, onLoad, fallbackToSoldOut,
+    instanceId,
+    productId,
+    productCode,
+    sku,
+    skuId,
+    style,
+    hoverStyle,
+    disabledStyle,
+    labelStyle,
+    lineItemProperties,
+    onLoad,
+    fallbackToSoldOut,
   }) => {
     const purpleDot = usePurpleDot();
     const isLoaded = useRef(false);
@@ -42,6 +52,7 @@ const makeElement = (placementType) => {
           productId,
           productCode,
           sku,
+          skuId,
           lineItemProperties,
           style,
           hoverStyle,
@@ -116,7 +127,8 @@ const makeElement = (placementType) => {
     instanceId: PropTypes.string,
     productId: PropTypes.string,
     productCode: PropTypes.string,
-    sku: PropTypes.string.isRequired,
+    sku: PropTypes.string,
+    skuId: PropTypes.string,
     lineItemProperties: lineItemPropertiesShape,
     style: styleShape,
     hoverStyle: styleShape,
@@ -131,6 +143,8 @@ const makeElement = (placementType) => {
     instanceId: '1',
     productId: undefined,
     productCode: undefined,
+    sku: undefined,
+    skuId: undefined,
     lineItemProperties: undefined,
     style: undefined,
     hoverStyle: undefined,
