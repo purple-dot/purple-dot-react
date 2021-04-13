@@ -1,5 +1,5 @@
 import {
-  PurpleDot, PriceElement, ButtonElement, MessagingElement, PreorderStatus,
+  PurpleDot, ButtonElement, PreorderStatus,
 } from '@purple-dot/purple-dot-react';
 import React from '../node_modules/react';
 import ReactDOM from '../node_modules/react-dom';
@@ -11,12 +11,10 @@ const App = () => (
       <PreorderStatus email="test@email.com" />
     ) : (
       <>
-        <PriceElement sku="test-sku" />
         <ButtonElement
           sku="test-sku"
           lineItemProperties={[{ name: 'Foo', value: 'Bar' }]}
         />
-        <MessagingElement sku="test-sku" />
       </>
     )}
   </PurpleDot>

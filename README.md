@@ -20,9 +20,9 @@ If you need access to the SDK object, you can use the `usePurpleDot` hook.
 
 ```jsx
 import React, { useEffect } from 'react';
-import { PurpleDot, PriceElement, ButtonElement, usePurpleDot } from '@purple-dot/purple-dot-react';
+import { ButtonElement, usePurpleDot } from '@purple-dot/purple-dot-react';
 
-const ProductPage = ({ sku, name, price }) => {
+const ProductPage = ({ product, selectedVariant, isPreorder }) => {
   const purpleDot = usePurpleDot();
 
   useEffect(() => {
@@ -34,19 +34,16 @@ const ProductPage = ({ sku, name, price }) => {
   }, [purpleDot]);
 
   return (
-    <PurpleDot apiKey="87d9920c-c9d4-4a17-9b77-cfd71a2d4f1a">
-      <div class="product-page">
-        <span>{name}</span>
-        <span>{price}</span>
+    <div class="product-page">
+      <span>{product.name}</span>
+      <span>{product.price}</span>
 
-        <PriceElement sku={sku} />
-
-        <button id="add-to-cart">Add to Cart</button>
-
-        <ButtonElement sku={sku} />
-
-      </div>
-    </PurpleDot>
+      {
+        isPreorder
+          ? <button id="add-to-cart">Add to Cart</button>
+          : <ButtonElement productId={product.id} skuId={selectedVariant.id} />
+      }
+    </div>
   );
 }
 ```
@@ -86,26 +83,6 @@ const Component = () => {
 
   return <div />;
 };
-```
-
-### `PriceElement`
-
-A component for the price placement.
-
-```jsx
-import { PriceElement } from '@purple-dot/purple-dot-react';
-
-<PriceElement
-  /* The SKU of the product to show a price for (required) */
-  sku="SKU123"
-  /* Used if there are multiple instances of the same element on the page */
-  instanceId="2"
-  /* A callback that fires when the price starts showing */
-  onLoad={() => {}}
-  /* A style element that customises the placement's appearance.
-     See https://www.purpledotprice.com/docs/reference/javascript-sdk#the-style-object */
-  style={{ fontSize: '16px' }}
-/>
 ```
 
 ### `ButtonElement`
@@ -169,23 +146,6 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
   onPreorderCheckoutSubmitted={() => {}}
   onPreorderCreated={({ reference, email, shippingAddress, lineItem }) => {}}
   onPreorderFailed={() => {}}
-/>
-```
-
-### `MessagingElement`
-
-A component for the messaging placement.
-
-```jsx
-import { MessagingElement } from '@purple-dot/purple-dot-react';
-
-<MessagingElement
-  // The SKU of the product that determines what messaging is shown
-  sku="SKU123"
-  // Used if there are multiple instances of the same element on the page
-  instanceId="2"
-  // A callback that fires when the messaging element starts showing
-  onLoad={() => {}}
 />
 ```
 

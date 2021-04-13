@@ -12,25 +12,25 @@ const apiKey = 'abc123';
 
 describe('makeElement()', () => {
   it('sets the display name of the element based on the placement type', () => {
-    const PriceShortElement = makeElement('price-short');
+    const ButtonElement = makeElement('button');
 
-    expect(PriceShortElement.displayName).toEqual('PriceShortElement');
+    expect(ButtonElement.displayName).toEqual('ButtonElement');
   });
 
   it('calls load() on the element when it is created and update() if the props change', async () => {
     const purpleDot = await loadPurpleDot();
 
-    const PriceElement = makeElement('price');
+    const ButtonElement = makeElement('button');
 
     const { rerender } = render(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku="SKU123" style={{ textColor: '#FF00FF' }} />
+        <ButtonElement sku="SKU123" style={{ textColor: '#FF00FF' }} />
       </PurpleDot>,
     );
 
     await waitFor(() => {
       expect(purpleDot.load).toHaveBeenCalledWith({
-        placementType: 'price',
+        placementType: 'button',
         instanceId: '1',
         sku: 'SKU123',
         style: { textColor: '#FF00FF' },
@@ -40,12 +40,12 @@ describe('makeElement()', () => {
 
     rerender(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku="SKU456" style={{ textColor: '#000' }} />
+        <ButtonElement sku="SKU456" style={{ textColor: '#000' }} />
       </PurpleDot>,
     );
 
     expect(purpleDot.update).toHaveBeenCalledWith({
-      placementType: 'price',
+      placementType: 'button',
       instanceId: '1',
       sku: 'SKU456',
       style: { textColor: '#000' },
@@ -58,17 +58,17 @@ describe('makeElement()', () => {
 
     await loadPurpleDot();
 
-    const PriceElement = makeElement('price');
+    const ButtonElement = makeElement('button');
 
     const { rerender } = render(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku="SKU123" instanceId="123" />
+        <ButtonElement sku="SKU123" instanceId="123" />
       </PurpleDot>,
     );
 
     rerender(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku="SKU123" instanceId="456" />
+        <ButtonElement sku="SKU123" instanceId="456" />
       </PurpleDot>,
     );
 
@@ -87,14 +87,14 @@ describe('makeElement()', () => {
 
     const sku = 'SKU123';
     const instanceId = '123';
-    const placementType = 'price';
+    const placementType = 'button';
     const onLoad = jest.fn();
 
-    const PriceElement = makeElement(placementType);
+    const ButtonElement = makeElement(placementType);
 
     render(
       <PurpleDot apiKey={apiKey}>
-        <PriceElement sku={sku} instanceId={instanceId} onLoad={onLoad} />
+        <ButtonElement sku={sku} instanceId={instanceId} onLoad={onLoad} />
       </PurpleDot>,
     );
 
@@ -110,9 +110,9 @@ describe('makeElement()', () => {
   });
 
   it('throws when used outside of the PurpleDot context', async () => {
-    const PriceElement = makeElement('price');
+    const ButtonElement = makeElement('button');
 
-    expect(() => render(<PriceElement sku="SKU123" />))
+    expect(() => render(<ButtonElement sku="SKU123" />))
       .toThrow('Purple Dot placement elements must be wrapped in <PurpleDot /> context');
   });
 });
