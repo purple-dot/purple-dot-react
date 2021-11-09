@@ -62,6 +62,7 @@ import { PurpleDot } from '@purple-dot/purple-dot-react';
 
 <PurpleDot
   apiKey="87d9920c-c9d4-4a17-9b77-cfd71a2d4f1a" // Your public API key
+  enableCart // Controls whether the cart is enabled
 />
 ```
 
@@ -86,26 +87,6 @@ const Component = () => {
 
   return <div />;
 };
-```
-
-### `PriceElement`
-
-A component for the price placement.
-
-```jsx
-import { PriceElement } from '@purple-dot/purple-dot-react';
-
-<PriceElement
-  /* The SKU of the product to show a price for (required) */
-  sku="SKU123"
-  /* Used if there are multiple instances of the same element on the page */
-  instanceId="2"
-  /* A callback that fires when the price starts showing */
-  onLoad={() => {}}
-  /* A style element that customises the placement's appearance.
-     See https://www.purpledotprice.com/docs/reference/javascript-sdk#the-style-object */
-  style={{ fontSize: '16px' }}
-/>
 ```
 
 ### `ButtonElement`
@@ -172,6 +153,23 @@ import { ButtonElement } from '@purple-dot/purple-dot-react';
 />
 ```
 
+### `CartButtonElement`
+
+A component for the cart button. The `enableCart` attribute has to be set on the
+`PurpleDot` context for the cart button to render.
+
+```jsx
+import { CartButtonElement } from '@purple-dot/purple-dot-react';
+
+<PriceElement
+  /* A callback that allows reacting to the cart button showing or hiding */
+  onVisibilityChanged={({ showing }) => {}}
+  /* A style element that customises the placement's appearance.
+     See https://www.purpledotprice.com/docs/reference/javascript-sdk#the-style-object */
+  style={{ fontSize: '16px' }}
+/>
+```
+
 ### `PreorderStatusElement`
 
 A component for dispaying the users pre-orders history 
@@ -183,6 +181,26 @@ import { PreorderStatusElement } from '@purple-dot/purple-dot-react';
   email="test@email.com"
   onPreorderCancelled={() => {}}
   onArrangeReturnClicked={() => {}}
+/>
+```
+
+### `PriceElement`
+
+A component for the price placement.
+
+```jsx
+import { PriceElement } from '@purple-dot/purple-dot-react';
+
+<PriceElement
+  /* The SKU of the product to show a price for (required) */
+  sku="SKU123"
+  /* Used if there are multiple instances of the same element on the page */
+  instanceId="2"
+  /* A callback that fires when the price starts showing */
+  onLoad={() => {}}
+  /* A style element that customises the placement's appearance.
+     See https://www.purpledotprice.com/docs/reference/javascript-sdk#the-style-object */
+  style={{ fontSize: '16px' }}
 />
 ```
 
