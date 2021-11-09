@@ -6,15 +6,15 @@ export const PurpleDotContext = React.createContext('not_set');
 
 export const usePurpleDot = () => useContext(PurpleDotContext);
 
-const PurpleDot = ({ apiKey, children }) => {
+const PurpleDot = ({ apiKey, enableCart, children }) => {
   const [ctx, setCtx] = useState(null);
 
   useEffect(() => {
     loadPurpleDot().then((purpleDot) => {
-      purpleDot.init({ apiKey });
+      purpleDot.init({ apiKey, enableCart });
       setCtx(purpleDot);
     });
-  }, [apiKey]);
+  }, [apiKey, enableCart]);
 
   return (
     <PurpleDotContext.Provider value={ctx}>{children}</PurpleDotContext.Provider>
@@ -23,7 +23,12 @@ const PurpleDot = ({ apiKey, children }) => {
 
 PurpleDot.propTypes = {
   apiKey: PropTypes.string.isRequired,
+  enableCart: PropTypes.element,
   children: PropTypes.element.isRequired,
+};
+
+PurpleDot.defaultProps = {
+  enableCart: false,
 };
 
 export default PurpleDot;

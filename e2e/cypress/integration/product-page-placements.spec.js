@@ -14,6 +14,11 @@ describe('@purple-dot/purple-dot-js', () => {
     cy.get('[data-purple-dot-placement-type="price"] > iframe').should('have.css', 'display', 'none');
     cy.get('[data-purple-dot-placement-type="button"] > iframe').should('have.css', 'display', 'none');
 
+    // Cart button should not be visible because the cart is empty
+    cy.get('[data-purple-dot-placement-type="cart-button"] > iframe').should('have.css', 'display', 'none');
+    // Cart button container is hidden in the onVisibilityChanged callback
+    cy.get('.cart-button-container').should('have.css', 'display', 'none');
+
     cy.window().then((win) => {
       expect(win.console.error).to.have.callCount(0);
       expect(win.console.warn).to.have.callCount(0);
