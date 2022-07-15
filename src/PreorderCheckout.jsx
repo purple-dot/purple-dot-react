@@ -21,6 +21,13 @@ export const PreorderCheckout = ({ cart, onItemRemoved }) => {
         await onItemRemoved({ variantId: data.externalVariantId });
       }
     });
+
+    return () => {
+      const iframe = document.querySelector('#checkout-iframe');
+      if (iframe) {
+        iframe.parentElement.removeChild(iframe);
+      }
+    };
   }, [sdk]);
 
   return <div />;
