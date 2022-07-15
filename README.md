@@ -1,35 +1,79 @@
-# Purple Dot SDK React Components
+# Purple Dot React Library 
 
-React components for the [purpledot.js SDK](https://www.purpledotprice.com/docs/reference/javascript-sdk).
+The Purple Dot React Library allows merchants to integrate Purple Dot into a React project.
+
+For more info on Purple Dot visit [https://www.getpurpledot.com](https://www.getpurpledot.com)
 
 ## Installation
+---
 
 ```bash
 npm install @purple-dot/purple-dot-react
 ```
 
-## Example Usage
+## Minimum Requirements
+---
 
-First, you need to set up the `PurpleDot` context. This components loads our
-JavaScript library and all other elements must be its children. You only need to
-include it once.
+React v16.8 or higher.
+
+## Features
+---
+
+The Purple Dot React Library currently only supports Purple Dot's Combined Checkout method. In this checkout method the Purple Dot backend will set the `enable oversell` option on products with a waitlist making them appear as available to buy. This library then works with your React components to provide the following:  
+
+- Displaying a Pre-order button if there is only pre-order stock left for the variant 
+
+- Showing a Purple Dot checkout iframe if the shoppers cart contains a pre-order item
+
+- Adding a Manage Pre-orders iframe to a specified page
+
+- Showing or hidding elements if a product is on pre-order 
+
+
+## Getting started
+---
+
+To get started you'll need your integration's Api Key. This can be found in the Purple Dot Merchant Portal at the bottom of the Integration Page. If you do not have access to the merchant portal. Contact us to get set up.
+
+Once you have your Api Key, you will need to wrap your App in the `PurpleDot` component. This must be at or very close to the top of your component tree to make sure that all relevant components are children. 
 
 ```jsx
+import { PurpleDot } from '@purple-dot/purple-dot-react';
+
+...
+
 const App = () => (
-  <PurpleDot apiKey="87d9920c-c9d4-4a17-9b77-cfd71a2d4f1a">
-    <Page />
+  <PurpleDot apiKey="<API-KEY>">
+    <ExampleRouter>
+      ...
+    </ExampleRouter>
   </PurpleDot>
 )
 ```
 
-Next, you can use the `PreorderButton` and `PreorderCheckout` components and
-`usePurpleDot` hook to integrate Purple Dot into your storefront.
+### Displaying a Pre-order button on the product page
 
-### Product Page Example
+The code below shows the changes necessary to your Product Display Page to start showing the Pre-order button. 
+
+There are 3 integration points you will need to provide:
+
+1. A `fetchAvailability` function: This function will need to return the in stock availability of the product and its variants.
+
+- NOTE - 
+     The function must be memoized to prevent infinite render loops,
+     see https://docs.react-async.com/api/options#promisefn.
+
+2. A `renderButton` function: This function renders 
+either the Add to Cart Button or the Preorder Button depending on the availability of the product
+
+3. An `onClick` function: When the Add to Cart / Pre-order is clicked this function will receive the id of the added variant as well as the line item properties necessary to add.
+
+- NOTE: These line item properties **must** be added to the cart in order for the checkout to recognise that the item is on pre-order.
+
 
 ```jsx
 import React, { useEffect, useState } from 'react';
-import { PurpleDot, usePurpleDot, PreorderButton } from '@purple-dot/purple-dot-react';
+import { usePurpleDot, PreorderButton } from '@purple-dot/purple-dot-react';
 
 const ProductPage = ({ product }) => {
   const [selectedVariantId, setSelectedVariantId] = useState(null);
@@ -41,22 +85,11 @@ const ProductPage = ({ product }) => {
 
   return (
     <div class="product-page">
-      // Render a pre-order or an add to cart button depending on availability
-      {availability.isFulfilled && availability.data.selectedVariant.availability === 'PRE_ORDER' ? (
         <PreorderButton
           availability={availability}
-          onClick={(item) => addToCart(item)}
+          onClick={({ id, properties }) => addToCart({ id, properties })}
           renderButton={(props) => <button {...props} />}
         />
-      ) : (
-        <button id="add-to-cart">Add to Cart</button>
-      )}
-      
-      // Exanple: render a pre-order badge if the product is available on pre-order
-      {availability.isFulfilled && availability.data.product.availability === 'PRE_ORDER' ? (
-        <Badge>Pre-order</Badge>
-      ) : null}
-
     </div>
   );
 }
@@ -84,29 +117,12 @@ function addToCart({ id, properties }) {
 }
 ```
 
-### Checkout Example
 
-On the cart page or inside a floating cart:
+### Showing a Purple Dot Checkout Iframe to the Cart Page
 
-```jsx
-import { usePurpleDotCheckout } from '@purple-dot/purple-dot-react';
+Add the following code to your cart page and pass the current state of the cart 
+to `usePurpleDotCheckout`. If pre-order items are detected in the cart. Purple Dot's combined checkout iframe will be displayed over the contents of the cart page. 
 
-const CartPage = ({ cart }) => {
-  const { preorderCheckout } = usePurpleDotCheckout({ cart });
-  
-  return (
-    <div class="cart-page">
-      <button
-        href={preorderCheckout ? '/pre-order-checkout' : '/checkout'}
-      >
-        Checkout now
-      </button>
-    </div>
-  );
-}
-```
-
-On a pre-order checkout page:
 
 ```jsx
 import { usePurpleDotCheckout } from '@purple-dot/purple-dot-react';
@@ -118,9 +134,22 @@ const CartPage = ({ cart }) => {
 }
 ```
 
-### Collection page example
+### Adding a Manage Pre-orders Iframe
 
-## Documentation
+Add the following code to a new page which shoppers will use to manage their pre-orders. We recommend the `/manage-pre-orders` path.
+
+```jsx
+import { PreorderSelfService } from '@purple-dot/purple-dot-react';
+
+<PreorderSelfService
+  onPreorderCancelled={() => {}}
+  onArrangeReturnClicked={() => {}}
+/>
+```
+
+
+## Reference
+---
 
 ### `PurpleDot`
 
@@ -132,7 +161,7 @@ import { PurpleDot } from '@purple-dot/purple-dot-react';
 
 <PurpleDot
   /* Your public API key, available in Purple Dot */
-  apiKey="87d9920c-c9d4-4a17-9b77-cfd71a2d4f1a"
+  apiKey="<API-KEY>"
 />
 ```
 
@@ -224,7 +253,3 @@ import { PreorderSelfService } from '@purple-dot/purple-dot-react';
   onArrangeReturnClicked={() => {}}
 />
 ```
-
-### Minimum Requirements
-
-The minimum supported version of React is v16.8.
