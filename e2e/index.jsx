@@ -21,15 +21,32 @@ const App = () => {
 };
 
 const Pages = ({ cartItems, setCartItems }) => {
-  if (window.location.hash === '#/product') {
-    return <ProductPage cartItems={cartItems} setCartItems={setCartItems} />;
-  } else if (window.location.hash === '#/pre-order-checkout') {
-    return <CheckoutPage cartItems={cartItems} />;
-  } else if (window.location.hash === '#/manage-pre-orders') {
-    return <SelfServicePage />;
+  function getPage() {
+    if (window.location.hash === '#/product') {
+      return 'PRODUCT';
+    } if (window.location.hash === '#/pre-order-checkout') {
+      return 'CHECKOUT';
+    } if (window.location.hash === '#/manage-pre-orders') {
+      return 'MANAGE_PRE_ORDERS';
+    }
   }
 
-  return null;
+  const [page, setPage] = useState();
+  useEffect(() => {
+    setInterval(() => {
+      const newPage = getPage();
+      if (newPage !== page) {
+        setPage(newPage);
+      }
+    }, 50);
+  }, []);
+
+  if (page === 'PRODUCT') {
+    return (<ProductPage cartItems={cartItems} setCartItems={setCartItems} />);
+  } if (page === 'CHECKOUT') {
+    return <CheckoutPage cartItems={cartItems} />;
+  }
+  return <SelfServicePage />;
 };
 
 const ProductPage = ({ cartItems, setCartItems }) => {
@@ -49,25 +66,27 @@ const ProductPage = ({ cartItems, setCartItems }) => {
           setSelectedVariantId(e.target.value);
         }}
       >
-        <option></option>
+        <option />
         <option>39361930592388</option>
         <option>39361930657924</option>
       </select>
       <p>
-        Availability data: {JSON.stringify(availability)}
+        Availability data:
+        {' '}
+        {JSON.stringify(availability)}
       </p>
       <PreorderButton
         onClick={(item) => {
           setCartItems((prevCartItems) => [...prevCartItems, item]);
         }}
         availability={availability}
-        renderButton={(props) => <button id="pre-order-btn" {...props}/>}
+        renderButton={(props) => <button id="pre-order-btn" {...props} />}
       />
     </div>
   );
 };
 
-const CheckoutPage = ({ cartItems}) => {
+const CheckoutPage = ({ cartItems }) => {
   const cart = { items: cartItems };
   const { preorderCheckout } = usePurpleDotCheckout({ cart });
 
@@ -82,15 +101,13 @@ const SelfServicePage = () => (
   <PreorderSelfService />
 );
 
-const fetchAvailability = async ({ productId }) => {
-  return {
-    id: 6572435406980,
+const fetchAvailability = async ({ productId }) => ({
+  id: 6572435406980,
+  inventory_quantity: 1,
+  variants: [{
+    id: 39361930592388,
     inventory_quantity: 1,
-    variants: [{
-      id: 39361930592388,
-      inventory_quantity: 1,
-    }],
-  };
-};
+  }],
+});
 
 ReactDOM.render(<App />, document.getElementById('app'));
