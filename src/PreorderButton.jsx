@@ -1,5 +1,7 @@
 import React from 'react';
 import { AVAILABILITY } from './use-purple-dot';
+import { WaitlistPoweredBy } from './WaitlistPoweredBy';
+import { WaitlistShipDates } from './WaitlistShipDates';
 
 const label = (availability) => {
   if (!availability.isFulfilled) {
@@ -16,51 +18,6 @@ const label = (availability) => {
     return 'Sold out';
   }
   return 'Add to cart';
-};
-
-const WaitlistPoweredBy = () => (
-  <>
-    <style>
-      {`
-        .pd-logo:before {
-          display: inline-block;
-          position: relative;
-          content: ' ';
-          border-radius: 50%;
-          width: 8px;
-          height: 8px;
-          bottom: 1px;
-          background-color: #8F17D1;
-        }
-
-        .pd-logo {
-          display: inline-block;
-          color: #8F17D1;
-        }
-      `}
-    </style>
-    <p id="pd-branding">
-      Waitlist powered by
-      {' '}
-      <span className="pd-logo">
-        Purple Dot
-      </span>
-    </p>
-  </>
-);
-
-const WaitlistShipDates = ({
-  availability,
-}) => {
-  const productWaitlist = availability.data?.product.waitlist;
-  const selectedVariantWaitlist = availability.data?.selectedVariant?.waitlist;
-  const waitlist = selectedVariantWaitlist ?? productWaitlist;
-
-  return (
-    <p id="pd-dispatch-dates">
-      {waitlist?.display_dispatch_date}
-    </p>
-  );
 };
 
 export const PreorderButton = ({
