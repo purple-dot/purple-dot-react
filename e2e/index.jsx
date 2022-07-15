@@ -44,7 +44,7 @@ const Pages = ({ cartItems, setCartItems }) => {
   if (page === 'PRODUCT') {
     return (<ProductPage cartItems={cartItems} setCartItems={setCartItems} />);
   } if (page === 'CHECKOUT') {
-    return <CheckoutPage cartItems={cartItems} />;
+    return <CheckoutPage cartItems={cartItems} setCartItems={setCartItems} />;
   }
   return <SelfServicePage />;
 };
@@ -86,13 +86,20 @@ const ProductPage = ({ cartItems, setCartItems }) => {
   );
 };
 
-const CheckoutPage = ({ cartItems }) => {
+const CheckoutPage = ({ cartItems, setCartItems }) => {
   const cart = { items: cartItems };
   const { preorderCheckout } = usePurpleDotCheckout({ cart });
 
   return (
     <>
-      {preorderCheckout && <PreorderCheckout cart={cart} />}
+      {preorderCheckout && (
+      <PreorderCheckout
+        cart={cart}
+        onItemRemoved={({ variantId }) => {
+          console.log('onItemRemoved', variantId);
+        }}
+      />
+      )}
     </>
   );
 };
