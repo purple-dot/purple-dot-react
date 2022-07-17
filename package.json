@@ -14,7 +14,8 @@
     "publish-package": "npm run build && npm publish --access public",
     "prepack": "cp .gitignore .npmignore && echo '\n e2e/ \n .circleci' >> .npmignore",
     "postpack": "rm .npmignore",
-    "cy:open": "TZ=UTC cypress open"
+    "cy:open": "cd e2e && npm run cy:open",
+    "cy:run": "cd e2e && npm run cy:run && cd .."
   },
   "repository": {
     "type": "git",

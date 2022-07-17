@@ -28,7 +28,7 @@ jobs:
           working_directory: e2e
           background: true
       - run:
-          command: npx cypress run
+          command: npm run cy:run
           working_directory: e2e
 
 workflows:
