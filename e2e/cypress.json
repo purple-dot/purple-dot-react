@@ -1,1 +1,9 @@
-{}
+{
+    "fixturesFolder": "./cypress/fixtures",
+    "integrationFolder": "./cypress/tests",
+    "pluginsFile": "./cypress/plugins",
+    "screenshotsFolder": "./cypress/screenshots",
+    "supportFile": "./cypress/support",
+    "videosFolder": "./cypress/videos",
+    "baseUrl": "https://localhost:8080"
+}

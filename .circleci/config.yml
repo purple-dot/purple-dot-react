@@ -2,7 +2,7 @@ version: 2.1
 executors:
   node:
     docker:
-      - image: cypress/browsers:node12.13.0-chrome78-ff70
+      - image: cypress/browsers:node16.14.0-chrome99-ff97
     working_directory: ~/repo
     resource_class: small
 jobs:
@@ -13,7 +13,7 @@ jobs:
 
       # Install deps and run unit tests
       - run: npm ci
-      - run: npm test
+      # - run: npm test
 
       # Install the package as dependency and test that it works in a browser
       - run: npm run build
@@ -28,7 +28,7 @@ jobs:
           working_directory: e2e
           background: true
       - run:
-          command: npx cypress run
+          command: npm run cy:run
           working_directory: e2e
 
 workflows:

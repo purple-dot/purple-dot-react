@@ -1,14 +1,15 @@
-import PurpleDot, { usePurpleDot } from './components/PurpleDotContext';
-import PreorderStatus from './components/PreorderStatus';
-import PriceElement from './components/PriceElement';
-import ButtonElement from './components/ButtonElement';
-import CartButtonElement from './components/CartButton';
+import PurpleDot from './PurpleDot';
+import { usePurpleDot } from './use-purple-dot';
+import { usePurpleDotCheckout } from './use-purple-dot-checkout';
+import { PreorderButton } from './PreorderButton';
+import { PreorderCheckout } from './PreorderCheckout';
+import { PreorderSelfService } from './SelfService';
 
 export {
   PurpleDot,
   usePurpleDot,
-  PriceElement,
-  ButtonElement,
-  CartButtonElement,
-  PreorderStatus,
+  usePurpleDotCheckout,
+  PreorderButton,
+  PreorderCheckout,
+  PreorderSelfService,
 };

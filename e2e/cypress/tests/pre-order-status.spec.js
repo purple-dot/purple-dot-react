@@ -7,7 +7,7 @@ describe('@purple-dot/purple-dot-js', () => {
   });
 
   it('Loads the Preorder Status Iframe', () => {
-    cy.visit('http://localhost:8080/pre-order-status');
+    cy.visit('http://localhost:8080/#/manage-pre-orders');
     cy.window().should('have.property', 'PurpleDot');
 
     // We expect the placement to not load since we're not using a real API key or SKU
