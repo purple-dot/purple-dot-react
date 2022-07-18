@@ -2,7 +2,7 @@
 
 The Purple Dot React Library allows merchants to integrate Purple Dot into a React project.
 
-For more info on Purple Dot visit [https://www.getpurpledot.com](https://www.getpurpledot.com)
+For more info on Purple Dot visit <https://www.getpurpledot.com>.
 
 ## Installation
 ---
@@ -19,21 +19,30 @@ React v16.8 or higher.
 ## Features
 ---
 
-The Purple Dot React Library currently only supports Purple Dot's Combined Checkout method. In this checkout method the Purple Dot backend will set the `enable oversell` option on products with a waitlist making them appear as available to buy. This library then works with your React components to provide the following:  
+This library works with your React components to provide the following:  
 
-- Displaying a Pre-order button if there is only pre-order stock left for the variant 
+- Displaying a Pre-order button if there is only pre-order stock left for the variant
 
 - Showing a Purple Dot checkout iframe if the shoppers cart contains a pre-order item
 
 - Adding a Manage Pre-orders iframe to a specified page
 
-- Showing or hidding elements if a product is on pre-order 
+- Showing or hiding elements if a product is on pre-order
 
 
 ## Getting started
 ---
 
-To get started you'll need your integration's Api Key. This can be found in the Purple Dot Merchant Portal at the bottom of the Integration Page. If you do not have access to the merchant portal. Contact us to get set up.
+### Product configuration
+In order to make some variant(s) of a product available to pre-order:
+
+1. In Shopify, for each relevant variant set the in stock availability level to 0.
+2. In the Purple Dot Portal, create a Waitlist for that product. This is where you will define how many units will become available to pre-order and when you expect to fulfill the collected pre-orders. Press `Get Help` > `Managing Your Waitlists` > `How do I set up a Waitlist?` if you need help with this step.
+
+Please note: when a new Waitlist is created, the Purple Dot backend will automatically tick the `Continue selling when out of stock` option for each product variant with some pre-order stock on said Waitlist. This is required for Purple Dot to correctly integrate into your Online Store. However this will make those variant(s) available to buy across all your sales channels so consider if you need to temporarily remove any other sales channels.
+
+### Adding the context provider
+To get started with the integration you will need your Purple Dot Api Key. This can be found in the Purple Dot Portal at the bottom of the Integration page. If you do not have access to the portal, please contact us at <support@getpurpledot.com> to get set up.
 
 Once you have your Api Key, you will need to wrap your App in the `PurpleDot` component. This must be at or very close to the top of your component tree to make sure that all relevant components are children. 
 
@@ -53,22 +62,22 @@ const App = () => (
 
 ### Displaying a Pre-order button on the product page
 
-The code below shows the changes necessary to your Product Display Page to start showing the Pre-order button. 
+The code below shows the changes necessary to your Product Detail Page to start showing the Pre-order button. 
 
 There are 3 integration points you will need to provide:
 
-1. A `fetchAvailability` function: This function will need to return the in stock availability of the product and its variants.
+1. A `fetchAvailability` function: This function will need to return the in stock availability levels of the product and its variants.
 
 - NOTE - 
      The function must be memoized to prevent infinite render loops,
      see https://docs.react-async.com/api/options#promisefn.
 
 2. A `renderButton` function: This function renders 
-either the Add to Cart Button or the Preorder Button depending on the availability of the product
+either the Add to Cart Button or the Preorder Button depending on the in stock availability of the selected product variant
 
 3. An `onClick` function: When the Add to Cart / Pre-order is clicked this function will receive the id of the added variant as well as the line item properties necessary to add.
 
-- NOTE: These line item properties **must** be added to the cart in order for the checkout to recognise that the item is on pre-order.
+- NOTE: These line item properties **must** be added to the cart in order for the checkout to recognize that the item is on pre-order.
 
 
 ```jsx
@@ -118,10 +127,10 @@ function addToCart({ id, properties }) {
 ```
 
 
-### Showing a Purple Dot Checkout Iframe to the Cart Page
+### Showing the Purple Dot Checkout Iframe to the Cart Page
 
 Add the following code to your cart page and pass the current state of the cart 
-to `usePurpleDotCheckout`. If pre-order items are detected in the cart. Purple Dot's combined checkout iframe will be displayed over the contents of the cart page. 
+to `usePurpleDotCheckout`. If pre-order items are detected in the cart then Purple Dot's checkout iframe will be displayed over the contents of the cart page. 
 
 
 ```jsx
@@ -136,7 +145,7 @@ const CartPage = ({ cart }) => {
 
 ### Adding a Manage Pre-orders Iframe
 
-Add the following code to a new page which shoppers will use to manage their pre-orders. We recommend the `/manage-pre-orders` path.
+Add the following code to a new page that shoppers will use to manage their pre-orders. We recommend the `/manage-pre-orders` path.
 
 ```jsx
 import { PreorderSelfService } from '@purple-dot/purple-dot-react';
@@ -196,7 +205,7 @@ const {
     }
   }
 } = usePurpleDot({
-  /* Product ID https://shopify.dev/docs/themes/liquid/reference/objects/product#product-id */
+  /* Product ID https://shopify.dev/api/liquid/objects#product-id */
   productId,
   /* (Optional) The currently selected variant ID */
   selectedVariantId,
@@ -243,7 +252,7 @@ const availability = usePurpleDot({ productId, selectedVariantId, fetchAvailabil
 
 ### `PreorderSelfService`
 
-A component for dispaying the self-serivce pre-order management portal.
+A component for displaying the self-service pre-order management portal.
 
 ```jsx
 import { PreorderSelfService } from '@purple-dot/purple-dot-react';
