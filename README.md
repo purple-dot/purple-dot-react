@@ -29,6 +29,7 @@ This library works with your React components to provide the following:
 
 - Showing or hiding elements if a product is on pre-order
 
+The current 2.0.0-beta.1 version supports Purple Dot's Combined Bag product only, where shoppers can check out with in-stock and pre-order line items using the same cart. Support for our Express checkout and Multi Bag checkout is coming soon.
 
 ## Getting started
 ---
