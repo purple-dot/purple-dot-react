@@ -108,7 +108,7 @@ const SelfServicePage = () => (
   <PreorderSelfService />
 );
 
-const fetchAvailability = async ({ productId }) => ({
+const fetchAvailability = ({ productId }) => ({
   id: 6572435406980,
   inventory_quantity: 1,
   variants: [{

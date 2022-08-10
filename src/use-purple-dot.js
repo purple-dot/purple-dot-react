@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useAsync } from 'react-async';
 import { useAvailability as usePreorderAvailability, useWaitlists } from './use-data';
 import { mergeAsyncResults } from './merge-async-results';
@@ -45,10 +46,16 @@ const selectedVariant = ({
   };
 };
 
-const useInStockAvailability = ({ fetchAvailability, productId }) => useAsync({
-  promiseFn: fetchAvailability,
-  productId,
-});
+const useInStockAvailability = ({ fetchAvailability, productId }) => {
+  const promiseFn = useCallback(
+    (...args) => Promise.resolve(fetchAvailability(...args)),
+    [fetchAvailability],
+  );
+  return useAsync({
+    promiseFn,
+    productId,
+  });
+};
 
 export const usePurpleDot = ({
   productId,
