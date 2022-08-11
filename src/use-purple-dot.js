@@ -54,6 +54,7 @@ const useInStockAvailability = ({ fetchAvailability, productId }) => {
   return useAsync({
     promiseFn,
     productId,
+    watch: `${productId}`,
   });
 };
 

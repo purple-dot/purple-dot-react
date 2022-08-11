@@ -1,28 +1,26 @@
 import { useAsync } from 'react-async';
 import { usePurpleDotConfig } from './PurpleDot';
 
-const fetchAvailability = async ({ productId, apiKey }, { signal }) => {
-  const res = await fetch(
-    `https://www.purpledotprice.com/api/v1/availability?api_key=${apiKey}&product_id=${productId}`,
-    { signal },
-  );
+const fetchURL = async (url, { signal }) => {
+  const res = await fetch(url, { signal });
   if (!res.ok) {
-    throw new Error(res.statusText);
+    throw new Error(res.statusText || `HTTP Error: ${res.status}`);
   }
   const body = await res.json();
   return body.data;
 };
 
+const fetchAvailability = async ({ productId, apiKey }, { signal }) => fetchURL(
+  `https://www.purpledotprice.com/api/v1/availability?api_key=${apiKey}&product_id=${productId}`,
+  { signal },
+);
+
 const fetchWaitlists = async ({ apiKey }, { signal }) => {
-  const res = await fetch(
+  const waitlists = await fetchURL(
     `https://www.purpledotprice.com/api/v1/waitlists?api_key=${apiKey}`,
     { signal },
   );
-  if (!res.ok) {
-    throw new Error(res.statusText);
-  }
-  const body = await res.json();
-  return { waitlists: body.data };
+  return { waitlists };
 };
 
 export const useAvailability = ({ productId }) => {
@@ -31,6 +29,7 @@ export const useAvailability = ({ productId }) => {
     promiseFn: fetchAvailability,
     productId,
     apiKey,
+    watch: `${apiKey}:${productId}`,
   });
 };
 
@@ -39,5 +38,6 @@ export const useWaitlists = () => {
   return useAsync({
     promiseFn: fetchWaitlists,
     apiKey,
+    watch: `${apiKey}`,
   });
 };
