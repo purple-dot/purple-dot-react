@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useAsync } from 'react-async';
 import { useAvailability as usePreorderAvailability, useWaitlists } from './use-data';
 import { mergeAsyncResults } from './merge-async-results';
+import decodeId from './decode-id';
 
 export const AVAILABILITY = {
   IN_STOCK: 'IN_STOCK',
@@ -59,10 +60,12 @@ const useInStockAvailability = ({ fetchAvailability, productId }) => {
 };
 
 export const usePurpleDot = ({
-  productId,
-  selectedVariantId = null,
+  productId: rawProductId,
+  selectedVariantId: rawSelectedVariantId = null,
   fetchAvailability,
 }) => {
+  const productId = decodeId(rawProductId);
+  const selectedVariantId = decodeId(rawSelectedVariantId);
   const preorderResult = usePreorderAvailability({ productId });
   const inStockResult = useInStockAvailability({ productId, fetchAvailability });
   const waitlistsResult = useWaitlists();
