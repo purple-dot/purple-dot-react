@@ -20,7 +20,7 @@ const availability = (inStock, preorder) => {
 };
 
 const findVariant = (avail, variantId) => avail.variants
-  .find((v) => v.id.toString() === variantId.toString());
+  .find((v) => decodeId(v.id).toString() === variantId.toString());
 
 const selectedVariant = ({
   inStockAvailability, preorderAvailability, waitlists, selectedVariantId,
