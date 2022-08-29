@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { usePurpleDotConfig } from './PurpleDot';
 import { usePurpleDotCheckout } from './use-purple-dot-checkout';
+import decodeId from './decode-id';
 
 export const PreorderCheckout = ({ cart, onItemRemoved }) => {
   const { sdk } = usePurpleDotConfig();
@@ -8,7 +9,14 @@ export const PreorderCheckout = ({ cart, onItemRemoved }) => {
 
   useEffect(() => {
     if (preorderCheckout) {
-      sdk.showCombinedCart({ shopifyCart: cart });
+      const shopifyCart = {
+        ...cart,
+        items: cart.items.map((item) => ({
+          ...item,
+          id: decodeId(item.id),
+        })),
+      };
+      sdk.showCombinedCart({ shopifyCart });
     }
 
     window.addEventListener('message', async (message) => {
