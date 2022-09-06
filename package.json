@@ -36,7 +36,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.9",
     "@purple-dot/purple-dot-js": "^0.2.2",
-    "core-js": "^3.23.4",
+    "core-js": "^3.24.1",
     "prop-types": "^15.7.2",
     "react-async": "^10.0.1"
   },
