@@ -8,7 +8,7 @@ For more info on Purple Dot visit <https://www.getpurpledot.com>.
 ---
 
 ```bash
-npm install @purple-dot/purple-dot-react@2.0.0
+npm install @purple-dot/purple-dot-react@2.0.1
 ```
 
 ## Minimum Requirements

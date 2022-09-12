@@ -1,6 +1,6 @@
 {
   "name": "@purple-dot/purple-dot-react",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A React library for integrating Purple Dot",
   "main": "dist/index.js",
   "scripts": {
