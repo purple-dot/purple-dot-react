@@ -24,6 +24,7 @@ export const PreorderButton = ({
   onClick,
   availability,
   renderButton,
+  labelClassName,
 }) => {
   const showPreorderElements = (
     availability.isFulfilled
@@ -51,8 +52,9 @@ export const PreorderButton = ({
         <>
           <WaitlistShipDates
             availability={availability}
+            className={labelClassName}
           />
-          <WaitlistPoweredBy />
+          <WaitlistPoweredBy className={labelClassName} />
         </>
       ) : null}
     </>

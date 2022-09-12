@@ -1,7 +1,7 @@
 import React from 'react';
 import { LearnMoreButton } from './LearnMoreButton';
 
-const WaitlistPoweredBy = () => (
+const WaitlistPoweredBy = ({ className }) => (
   <>
     <style>
       {`
@@ -22,7 +22,7 @@ const WaitlistPoweredBy = () => (
         }
       `}
     </style>
-    <p id="pd-branding">
+    <p id="pd-branding" className={className}>
       Waitlist powered by
       {' '}
       <span className="pd-logo">
