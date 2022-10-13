@@ -32,6 +32,11 @@ const selectedVariant = ({
   const inStockVariant = findVariant(inStockAvailability, selectedVariantId);
   const preorderVariant = findVariant(preorderAvailability, selectedVariantId);
   const availabilityResult = availability(inStockVariant, preorderVariant);
+
+  if (!inStockVariant || !preorderVariant) {
+    return undefined;
+  }
+
   const waitlist = waitlists.waitlists
     .find((w) => w.id === preorderVariant.waitlist_id);
   const properties = availabilityResult === AVAILABILITY.PRE_ORDER ? {
