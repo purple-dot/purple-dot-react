@@ -34,7 +34,7 @@
     "react"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.19.0",
+    "@babel/runtime": "^7.22.5",
     "@purple-dot/purple-dot-js": "^0.2.2",
     "core-js": "^3.25.1",
     "prop-types": "^15.7.2",
